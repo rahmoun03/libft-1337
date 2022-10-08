@@ -6,3 +6,5 @@ build: print_msg
 	@$(GCC) ft_*.c main.c libft.h
 clean:
 	rm -rf a.out libft.h.gch
+re:clean
+	@$(GCC) ft_*.c main.c libft.h
