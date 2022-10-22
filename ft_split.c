@@ -1,84 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/09 16:22:59 by arahmoun          #+#    #+#             */
+/*   Updated: 2022/10/09 17:18:46 by arahmoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"libft.h"
 
-int	char_is_sep(char c, char *charset)
-{
-	int	i;
 
+int ft_count_words(char *s, char c)
+{
+	int i;
+	int word;
+
+	word = 0;
 	i = 0;
-	while (charset[i])
+	while (s[i])
 	{
-		if (c == charset[i])
-			return (1);
+		if(s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			word++;
 		i++;
 	}
-	if (c == '\0')
+	return (word);
+}
+int ft_is_sep(char s, char c)
+{
+	if (s == c)
 		return (1);
 	return (0);
 }
-
-int	count_words(char *str, char *charset)
+void	ft_alocate(char **tab, char *s, char c, int w)
 {
-	int	i;
-	int	words;
+	int i;
+	int a;
+	int j;
 
 	i = 0;
-	words = 0;
-	while (str[i])
+	j = 0;
+	a = 0;
+	while (j < w)
 	{
-		if (char_is_sep(str[i + 1], charset) == 1
-			&& char_is_sep(str[i], charset) == 0)
-			words++;
-		i++;
-	}
-	return (words);
-}
-
-void	fill_word(char *dest, char *from, char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (char_is_sep(from[i], charset) == 0)
-	{
-		dest[i] = from[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
-
-void	fill_split(char **split, char *str, char *charset)
-{
-	int	i;
-	int	j;
-	int	word;
-
-	i = 0;
-	word = 0;
-	while (str[i])
-	{
-		if (char_is_sep(str[i], charset) == 1)
-			i++;
-		else
+		i = 0;
+		while(ft_is_sep(s[a], c))
+			a++;
+		while (ft_is_sep(s[a + i], c) == 0)
 		{
-			j = 0;
-			while (char_is_sep(str[i + j], charset) == 0)
-				j++;
-			split[word] = (char *)malloc(sizeof(char) * (j + 1));
-			fill_word(split[word], str + i, charset);
-			i += j;
-			word++;
+			if (ft_is_sep(s[a + i + 1], c) || s[a + 1 + i] == '\0')
+			{
+				tab[j] = (char *)malloc(i + 1);
+				a = a + i + 1;
+				// if (!tab[j])
+				// 	free
+				break;
+			}
+			i++;
 		}
+		j++;
+	}
+}
+void  ft_fill_split(char **tab, char *s, char c)
+{
+	int i;
+	int j;
+	int a;
+	int skip;
+
+	j = 0;
+	i = 0;
+	skip = 0;
+	while (tab[j])
+	{
+		a = 0;
+		while(ft_is_sep(s[i + skip], c) && s[i])
+			skip++;
+		if(!ft_is_sep(s[i + skip], c) && s[i])
+		{
+			while(!ft_is_sep(s[i + skip], c) && s[i + skip])
+			{
+				tab[j][a] = s[i + skip];
+				i++;
+				a++;
+			}
+			tab[j][a] = '\0';
+		}
+		j++;
 	}
 }
 
-char	**ft_split(char *str, char *charset)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		total_words;
+	int		i;
 
-	total_words = count_words(str, charset);
+	i = 0;
+	total_words = ft_count_words((char *)s, c);
 	tab = (char **)malloc(sizeof(char *) * (total_words + 1));
-	tab[total_words] = 0;
-	fill_split(tab, str, charset);
+	if (!tab)
+		return(NULL);
+	tab[total_words] = NULL;
+	ft_alocate(tab, (char *)s, c , total_words);
+	ft_fill_split(tab, (char*)s, c);
 	return (tab);
 }

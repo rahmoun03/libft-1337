@@ -1,9 +1,19 @@
-#include<unistd.h>
-#include<stdio.h>
-int    tolower(int c)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/09 16:19:06 by arahmoun          #+#    #+#             */
+/*   Updated: 2022/10/09 17:48:30 by arahmoun         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include"libft.h"
+
+int	ft_tolower(int c)
 {
-    if (c >= 65 && c <= 90)
-        return(c + 32);
-    else
-        return(c);
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
 }
