@@ -6,39 +6,39 @@
 /*   By: arahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 16:22:59 by arahmoun          #+#    #+#             */
-/*   Updated: 2022/10/09 17:18:46 by arahmoun         ###   ########.fr       */
+/*   Updated: 2022/10/24 21:57:58 by arahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include"libft.h"
-
-
-int ft_count_words(char *s, char c)
+int	ft_count_words(char *s, char c)
 {
-	int i;
-	int word;
+	int	i;
+	int	word;
 
 	word = 0;
 	i = 0;
 	while (s[i])
 	{
-		if(s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if ((s[i] != c) && (s[i + 1] == c || s[i + 1] == '\0'))
 			word++;
 		i++;
 	}
 	return (word);
 }
-int ft_is_sep(char s, char c)
+
+int	ft_is_sep(char s, char c)
 {
 	if (s == c)
 		return (1);
 	return (0);
 }
+
 void	ft_alocate(char **tab, char *s, char c, int w)
 {
-	int i;
-	int a;
-	int j;
+	int	i;
+	int	a;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -46,29 +46,29 @@ void	ft_alocate(char **tab, char *s, char c, int w)
 	while (j < w)
 	{
 		i = 0;
-		while(ft_is_sep(s[a], c))
+		while (ft_is_sep(s[a], c))
 			a++;
 		while (ft_is_sep(s[a + i], c) == 0)
 		{
 			if (ft_is_sep(s[a + i + 1], c) || s[a + 1 + i] == '\0')
 			{
+				i++;
 				tab[j] = (char *)malloc(i + 1);
-				a = a + i + 1;
-				// if (!tab[j])
-				// 	free
-				break;
+				a = a + i;
+				break ;
 			}
 			i++;
 		}
 		j++;
 	}
 }
-void  ft_fill_split(char **tab, char *s, char c)
+
+void	ft_fill_split(char **tab, char *s, char c)
 {
-	int i;
-	int j;
-	int a;
-	int skip;
+	int	i;
+	int	j;
+	int	a;
+	int	skip;
 
 	j = 0;
 	i = 0;
@@ -76,11 +76,11 @@ void  ft_fill_split(char **tab, char *s, char c)
 	while (tab[j])
 	{
 		a = 0;
-		while(ft_is_sep(s[i + skip], c) && s[i])
+		while (ft_is_sep(s[i + skip], c) && s[i])
 			skip++;
-		if(!ft_is_sep(s[i + skip], c) && s[i])
+		if (!ft_is_sep(s[i + skip], c) && s[i])
 		{
-			while(!ft_is_sep(s[i + skip], c) && s[i + skip])
+			while (!ft_is_sep(s[i + skip], c) && s[i + skip])
 			{
 				tab[j][a] = s[i + skip];
 				i++;
@@ -102,9 +102,9 @@ char	**ft_split(char const *s, char c)
 	total_words = ft_count_words((char *)s, c);
 	tab = (char **)malloc(sizeof(char *) * (total_words + 1));
 	if (!tab)
-		return(NULL);
+		return (NULL);
 	tab[total_words] = NULL;
-	ft_alocate(tab, (char *)s, c , total_words);
-	ft_fill_split(tab, (char*)s, c);
+	ft_alocate(tab, (char *)s, c, total_words);
+	ft_fill_split(tab, (char *)s, c);
 	return (tab);
 }

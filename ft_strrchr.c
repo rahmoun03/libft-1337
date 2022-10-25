@@ -6,10 +6,10 @@
 /*   By: arahmoun <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 16:18:40 by arahmoun          #+#    #+#             */
-/*   Updated: 2022/10/09 17:47:25 by arahmoun         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:37:31 by arahmoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -18,9 +18,9 @@ char	*ft_strrchr(const char *s, int c)
 	i = ft_strlen(s);
 	if (!s)
 		return (NULL);
-	while (s[i] != c && i >= 0)
+	while (s[i] != (unsigned char)c && i > 0)
 		i--;
-	if (s[i] == c)
+	if (s[i] == (unsigned char)c && i >= 0)
 		return ((char *)s + i);
 	return (NULL);
 }
