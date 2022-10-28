@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_start(char *s1, char *s2)
+static int	ft_start(char *s1, char *s2)
 {
 	int	i;
 	int	a;
@@ -38,7 +38,7 @@ int	ft_start(char *s1, char *s2)
 	return (skip);
 }
 
-int	ft_end(char *s1, char *s2, int i)
+static int	ft_end(char *s1, char *s2, int i)
 {
 	int	a;
 	int	skip;
@@ -64,7 +64,7 @@ int	ft_end(char *s1, char *s2, int i)
 	return (skip);
 }
 
-char	*ft_empty(void)
+static char	*ft_empty(void)
 {
 	char	*ret;
 
@@ -73,7 +73,7 @@ char	*ft_empty(void)
 	return (ret);
 }
 
-char	*ft_strcpy(char *s1, char *s2)
+static char	*ft_strcpy(char *s1, char *s2)
 {
 	char	*dst;
 	int		i;
@@ -105,7 +105,7 @@ char	*ft_strtrim(char const *s1, char const *s2)
 	char	*s22;
 	size_t	i;
 
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (NULL);
 	i = ft_strlen(s1);
 	s11 = (char *)s1;

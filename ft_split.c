@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_count_words(char *s, char c)
+static int	ft_count_words(char *s, char c)
 {
 	int	i;
 	int	word;
@@ -27,14 +27,14 @@ int	ft_count_words(char *s, char c)
 	return (word);
 }
 
-int	ft_is_sep(char s, char c)
+static int	ft_is_sep(char s, char c)
 {
 	if (s == c)
 		return (1);
 	return (0);
 }
 
-void	ft_alocate(char **tab, char *s, char c, int w)
+static void	ft_alocate(char **tab, char *s, char c, int w)
 {
 	int	i;
 	int	a;
@@ -63,7 +63,7 @@ void	ft_alocate(char **tab, char *s, char c, int w)
 	}
 }
 
-void	ft_fill_split(char **tab, char *s, char c)
+static void	ft_fill_split(char **tab, char *s, char c)
 {
 	int	i;
 	int	j;
@@ -98,6 +98,8 @@ char	**ft_split(char const *s, char c)
 	int		total_words;
 	int		i;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
 	total_words = ft_count_words((char *)s, c);
 	tab = (char **)malloc(sizeof(char *) * (total_words + 1));

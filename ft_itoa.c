@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include"libft.h"
 
-char	*ft_convert(char *re, long int val, int i)
+static char	*ft_convert(char *re, long int val, int i)
 {
 	i--;
 	if (val < 0)
@@ -35,7 +35,7 @@ char	*ft_convert(char *re, long int val, int i)
 	return (re);
 }
 
-char	*ft_zero(void)
+static char	*ft_zero(void)
 {
 	char	*re;
 
