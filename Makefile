@@ -10,8 +10,7 @@ ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c
 BON		= ${BONUS:.c=.o}
 OBJS	= ${SRCS:.c=.o}
 CFLAGS	= -Wall -Wextra -Werror
-CC		= cc
-AR		= ar r
+AR		= ar rc
 RM		= rm -rf
 NAME	= libft.a
 LIBR	= ranlib
